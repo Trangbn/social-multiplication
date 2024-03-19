@@ -11,6 +11,22 @@ function updateMultiplication() {
     });
 }
 
+function updateStats(alias){
+    $.ajax({
+        url: "http://localhost:8080/results?alias=" + alias
+    }).then(function (data){
+        $('#stats-body').empty();
+        data.forEach(function (row) {
+            $('#stats-body').append('<tr>' +
+                '<td>'+ row.id + '</td>'
+                + '<td>' + row.multiplication.factorA + 'x' + row.multiplication.factorB
+                + '</td>' + '<td>' + row.resultAttempt + '</td>'
+                + '<td>' + (row.correct === true ? 'YES' : 'NO')
+                + '</td></tr>')
+        })
+    })
+}
+
 $(document).ready(function () {
     updateMultiplication();
     $("#attempt-form").submit(function (event) {
@@ -19,8 +35,8 @@ $(document).ready(function () {
         // Get some values from elements on the page
         var a = $('.multiplication-a').text();
         var b = $('.multiplication-b').text();
-        var $form = $(this),
-            attempt = $form.find("input[name='result-attempt']").val(),
+        var $form = $(this);
+            attempt = $form.find("input[name='result-attempt']").val();
             userAlias = $form.find("input[name='user-alias']").val();
 // Compose the data in the format that the API is expecting1
         var data = {user: {alias: userAlias}, multiplication: {factorA: a, factorB: b}, resultAttempt: attempt};
@@ -39,5 +55,6 @@ $(document).ready(function () {
             }
         });
         updateMultiplication();
+        updateStats(userAlias);
     });
 });
