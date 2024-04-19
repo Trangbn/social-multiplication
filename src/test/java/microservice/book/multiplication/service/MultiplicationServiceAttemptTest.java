@@ -3,6 +3,7 @@ package microservice.book.multiplication.service;
 import microservice.book.multiplication.domain.Multiplication;
 import microservice.book.multiplication.domain.MultiplicationResultAttempt;
 import microservice.book.multiplication.domain.User;
+import microservice.book.multiplication.event.EventDispatcher;
 import microservice.book.multiplication.repository.MultiplicationRepository;
 import microservice.book.multiplication.repository.MultiplicationResultAttemptRepository;
 import microservice.book.multiplication.repository.UserRepository;
@@ -29,11 +30,14 @@ public class MultiplicationServiceAttemptTest {
     @Mock
     private MultiplicationRepository multiplicationRepository;
 
+    @Mock
+    private EventDispatcher eventDispatcher;
+
     @Before
     public void setUp() {
         // With this call to initMocks we tell Mockito to process the annotations
         MockitoAnnotations.initMocks(this);
-        multiplicationServiceImpl = new MultiplicationServiceImpl(randomGeneratorService,attemptRepository ,userRepository, multiplicationRepository);
+        multiplicationServiceImpl = new MultiplicationServiceImpl(randomGeneratorService,attemptRepository ,userRepository, multiplicationRepository, eventDispatcher);
     }
 
     @Test
