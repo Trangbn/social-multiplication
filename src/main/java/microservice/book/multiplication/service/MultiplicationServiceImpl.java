@@ -29,7 +29,7 @@ public class MultiplicationServiceImpl implements MultiplicationService {
     public MultiplicationServiceImpl(final RandomGeneratorService randomGeneratorService,
                                      final MultiplicationResultAttemptRepository attemptRepository,
                                      final UserRepository userRepository,
-                                     final EventDispatcher eventDispatcher, MultiplicationResultAttemptRepository multiplicationResultAttemptRepository) {
+                                     final EventDispatcher eventDispatcher) {
         this.randomGeneratorService = randomGeneratorService;
         this.attemptRepository = attemptRepository;
         this.userRepository = userRepository;
